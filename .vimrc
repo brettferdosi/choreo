@@ -158,10 +158,10 @@ highlight VertSplit ctermfg=238
 " remove vertical split bar |
 set fillchars+=vert:\ 
 
-" add column at text width
-set colorcolumn =+1
 " change text width column's background color
-highlight ColorColumn ctermbg=238
+highlight ColorColumn ctermbg=red
+" highlight text width column for offending lines
+call matchadd('ColorColumn', '\%101v', -1)
 
 " change omnicomplete box background color
 highlight Pmenu ctermbg=238

@@ -36,8 +36,12 @@ shopt -s cdspell
 #### ALIASES ####
 #################
 
-# coloring
-alias ls="ls -G"
+# coloring for BSD and GNU
+if ls --color=auto -d / >/dev/null 2>&1; then
+  alias ls="ls --color=auto"
+else
+  alias ls="ls -G"
+fi
 # hidden
 alias la="ls -A"
 # list and hidden
@@ -69,6 +73,6 @@ alias shutdown="sudo shutdown -h now"
 function prompt {
   local COLOR="\[\e[32m\]"
   if [ $EUID -eq 0 ]; then COLOR="\[\e[31m\]"; fi
-  echo "$COLOR\u@\h\[\e[m\] \w\n🐊  "
+  echo "$COLOR\u@\h\[\e[m\] \w$COLOR\n🐊 \[\e[m\] "
 }
 PS1=$(prompt)

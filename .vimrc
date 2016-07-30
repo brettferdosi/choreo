@@ -82,12 +82,12 @@ set gdefault
 
 " intelligent relative/absolute numbering
 set rnu
-function! RelativeOn()
-    set nu!
+function RelativeOn()
+    set nonu
     set rnu
 endfunction
-function! NumbersOn()
-    set rnu!
+function NumbersOn()
+    set nornu
     set nu
 endfunction
 autocmd FocusLost * call NumbersOn()

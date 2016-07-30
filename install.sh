@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DIR="$(cd "$(dirname "$0")" && pwd -P)"
 
 ln -sfv "$DIR/.bash_profile" ~
 ln -sfv "$DIR/.bashrc" ~

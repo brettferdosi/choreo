@@ -14,6 +14,7 @@ if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
 fi
 
 echo "installing Vundle plugins..."
-vim +PluginInstall +qall
+# input tty so vim doesn't complain
+vim +PluginInstall +qall </dev/tty
 
 echo "done"

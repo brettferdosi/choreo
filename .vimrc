@@ -18,6 +18,9 @@ set splitbelow
 " display incomplete commands
 set showcmd
 
+" make space leader (this way so showcmd shows \)
+map <Space> <Leader>
+
 """"""""""""""""""
 """" BINDINGS """"
 """"""""""""""""""
@@ -51,9 +54,8 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " match previous line indentation
 set autoindent
 
-" wrap lines at 100
-set textwidth=100
 " don't insert newlines
+set textwidth=0
 set wrapmargin=0
 
 " highlight matches
@@ -82,20 +84,27 @@ set gdefault
 
 " intelligent relative/absolute numbering
 set rnu
-function RelativeOn()
+function! RelativeOn()
+  if &buftype != "nofile"
     set nonu
     set rnu
+  endif
 endfunction
-function NumbersOn()
+function! NumbersOn()
+  if &buftype != "nofile"
     set nornu
     set nu
+  endif
 endfunction
-autocmd FocusLost * call NumbersOn()
-autocmd FocusGained * call RelativeOn()
-autocmd BufLeave * call NumbersOn()
-autocmd BufEnter * call RelativeOn()
-autocmd InsertEnter * call NumbersOn()
-autocmd InsertLeave * call RelativeOn()
+augroup numbering
+  autocmd!
+  autocmd FocusLost * call NumbersOn()
+  autocmd FocusGained * call RelativeOn()
+  autocmd BufLeave * call NumbersOn()
+  autocmd BufEnter * call RelativeOn()
+  autocmd InsertEnter * call NumbersOn()
+  autocmd InsertLeave * call RelativeOn()
+augroup END
 
 """""""""""""""""
 """" PLUGINS """"
@@ -109,19 +118,26 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end()
 
-" supertab
-let g:SuperTabDefaultCompletionType = "context"
-
-" syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" restore indenting
+" opening NERDTree doesn't trigger BufLeave
+map <C-n> :call NumbersOn() <bar> :NERDTree<CR>
+let g:NERDTreeMapOpenVSplit="v"
+let g:NERDTreeMapOpenSplit="s"
+
+" choose completion context intelligently
+let g:SuperTabDefaultCompletionType = "context"
+
+" restore filetype plugin/indents
 filetype plugin indent on
 
 """"""""""""""""
@@ -161,10 +177,10 @@ set fillchars+=vert:\
 " change text width column's background color
 highlight ColorColumn ctermbg=red
 " highlight text width column for offending lines
-call matchadd('ColorColumn', '\%101v', -1)
+call matchadd("ColorColumn", "\%101v", -1)
 
 " change omnicomplete box background color
 highlight Pmenu ctermbg=238
 
-" change sign column background color (SYNTACTIC)
+" change sign column background color
 highlight SignColumn ctermbg=238

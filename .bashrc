@@ -61,7 +61,7 @@ alias grep="grep --color=always --line-number"
 alias less="less -R"
 
 # aliases after sudo (http://askubuntu.com/a/22043)
-alias sudo='sudo '
+alias sudo="sudo "
 
 alias reboot="sudo shutdown -r now"
 alias shutdown="sudo shutdown -h now"

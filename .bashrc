@@ -1,8 +1,3 @@
-if [ -f ~/.bashlocal ]; then source ~/.bashlocal; fi
-
-# skip this if non-interactive
-[ -z "$PS1" ] && return
-
 ##################
 #### SETTINGS ####
 ##################
@@ -19,12 +14,16 @@ if [ $? -eq 0 ]; then
   export PAGER=$LESS_PATH
 fi
 
+# skip the rest of this file if non-interactive
+[ -z "$PS1" ] && return
+
 # ignore duplicates in bash history
 export HISTCONTROL=ignoredups:erasedups
 # append to history file (don't overwrite) on shell exit
 shopt -s histappend
 # append and reread history after each command from each shell
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 
 # change LINES and COLUMNS after each command if needed
 shopt -s checkwinsize
@@ -60,9 +59,6 @@ alias grep="grep --color=always --line-number"
 # coloring
 alias less="less -R"
 
-# aliases after sudo (http://askubuntu.com/a/22043)
-alias sudo="sudo "
-
 alias reboot="sudo shutdown -r now"
 alias shutdown="sudo shutdown -h now"
 
@@ -71,8 +67,30 @@ alias shutdown="sudo shutdown -h now"
 ################
 
 function prompt {
-  local COLOR="\[\e[32m\]"
-  if [ $EUID -eq 0 ]; then COLOR="\[\e[31m\]"; fi
-  echo "$COLOR\u@\h\[\e[m\] \w$COLOR\n🐊 \[\e[m\] "
+  local EXITSTATUS=$?
+  local NUMJOBS=$(jobs | wc -l | tr -d '[[:space:]]')
+
+  local GREEN="\[\e[32m\]"
+  local RED="\[\e[31m\]"
+  local YELLOW="\[\e[33m\]"
+  local RESET="\[\e[m\]"
+
+  local USERCOLOR="$GREEN"
+  local HOSTCOLOR="$GREEN"
+  if [ $EUID -eq 0 ]; then USERCOLOR="$RED"; fi
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then HOSTCOLOR="$YELLOW"; fi
+
+  local STATUS=""
+  if [ $EXITSTATUS -ne 0 ]; then STATUS=" ($EXITSTATUS)"; fi
+  local JOBS=""
+  if [ $NUMJOBS -ne 0 ]; then JOBS=" [$NUMJOBS]"; fi
+
+  PS1="$USERCOLOR\u$RESET@$HOSTCOLOR\h$RESET$STATUS$JOBS \w$GREEN\n🐊 $RESET "
 }
-PS1=$(prompt)
+export PROMPT_COMMAND="prompt; $PROMPT_COMMAND"
+
+###############
+#### LOCAL ####
+###############
+
+if [ -f ~/.bashlocal ]; then source ~/.bashlocal; fi

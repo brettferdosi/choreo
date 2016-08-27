@@ -54,9 +54,13 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " match previous line indentation
 set autoindent
 
-" don't insert newlines
+" don't insert newlines except when editing .txt
 set textwidth=0
 set wrapmargin=0
+augroup wrap 
+  autocmd!
+  autocmd Filetype text setlocal textwidth=80
+augroup END
 
 " highlight matches
 set showmatch
@@ -173,11 +177,6 @@ highlight StatusLineNC ctermfg=238
 highlight VertSplit ctermfg=238
 " remove vertical split bar |
 set fillchars+=vert:\ 
-
-" change text width column's background color
-highlight ColorColumn ctermbg=red
-" highlight text width column for offending lines
-call matchadd("ColorColumn", "\%101v", -1)
 
 " change omnicomplete box background color
 highlight Pmenu ctermbg=238

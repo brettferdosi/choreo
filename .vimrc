@@ -59,7 +59,7 @@ set textwidth=0
 set wrapmargin=0
 augroup wrap 
   autocmd!
-  autocmd Filetype text setlocal textwidth=80
+  autocmd Filetype text,tex setlocal textwidth=80
 augroup END
 
 " highlight matches
@@ -110,9 +110,13 @@ augroup numbering
   autocmd InsertLeave * call RelativeOn()
 augroup END
 
+" completion popup options
+set completeopt=menuone,preview,longest
+
 """""""""""""""""
 """" PLUGINS """"
 """""""""""""""""
+
 " run :PluginInstall to install plugins
 
 " vundle init
@@ -124,13 +128,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'ervandew/supertab'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'ervandew/supertab'
 
 call vundle#end()
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
+" don't check when quitting
 let g:syntastic_check_on_wq = 0
 
 " opening NERDTree doesn't trigger BufLeave
@@ -138,11 +141,25 @@ map <C-n> :call NumbersOn() <bar> :NERDTree<CR>
 let g:NERDTreeMapOpenVSplit="v"
 let g:NERDTreeMapOpenSplit="s"
 
-" choose completion context intelligently
+" use context supertab completion with keyword default
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-p>"
 
 " restore filetype plugin/indents
 filetype plugin indent on
+
+" language support
+setlocal omnifunc=syntaxcomplete#Complete
+augroup lang
+  autocmd!
+  autocmd FileType c
+    \ setlocal omnifunc=ccomplete#Complete |
+    \ let b:SuperTabContextDefaultCompletionType = "<c-p>" |
+    \ map <C-c> :!ctags -R .<CR>
+  autocmd FileType java
+    \ call SuperTabChain(&omnifunc, "<c-p>") |
+    \ let b:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
+augroup END
 
 """"""""""""""""
 """" VISUAL """"

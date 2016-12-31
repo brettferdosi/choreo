@@ -26,14 +26,14 @@ map <Space> <Leader>
 """"""""""""""""""
 
 " split movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-h> <C-w>h
+noremap <C-l> <C-w>l
 
 " navigate wrapped lines
-nnoremap j gj
-nnoremap k gk
+noremap j gj
+noremap k gk
 
 """"""""""""""""
 """" EDITOR """"
@@ -54,13 +54,19 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " match previous line indentation
 set autoindent
 
-" don't insert newlines except when editing .txt
+" don't insert newlines
 set textwidth=0
 set wrapmargin=0
-augroup wrap 
+
+" spellcheck and format when editing text
+augroup text
   autocmd!
   autocmd Filetype text,tex setlocal textwidth=80
+  autocmd Filetype text,tex setlocal spell spelllang=en
 augroup END
+
+" set default tex mode to latex
+let g:tex_flavor = "latex"
 
 " highlight matches
 set showmatch
@@ -159,6 +165,8 @@ augroup lang
   autocmd FileType java
     \ call SuperTabChain(&omnifunc, "<c-p>") |
     \ let b:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
+  autocmd FileType tex
+    \ map <C-c> :!pdflatex '%:p'<CR>
 augroup END
 
 """"""""""""""""

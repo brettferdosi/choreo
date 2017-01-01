@@ -21,8 +21,6 @@ fi
 export HISTCONTROL=ignoredups:erasedups
 # append to history file (don't overwrite) on shell exit
 shopt -s histappend
-# append and reread history after each command from each shell
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # change LINES and COLUMNS after each command if needed
 shopt -s checkwinsize
@@ -86,7 +84,7 @@ function prompt {
 
   PS1="$USERCOLOR\u$RESET@$HOSTCOLOR\h$RESET$STATUS$JOBS \w$GREEN\n🐊 $RESET "
 }
-export PROMPT_COMMAND="prompt; $PROMPT_COMMAND"
+export PROMPT_COMMAND="prompt"
 
 ###############
 #### LOCAL ####

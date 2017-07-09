@@ -62,7 +62,7 @@ set wrapmargin=0
 augroup text
   autocmd!
   autocmd Filetype text,tex setlocal textwidth=80
-  autocmd Filetype text,tex setlocal spell spelllang=en
+  autocmd Filetype tex setlocal spell spelllang=en
 augroup END
 
 " set default tex mode to latex
@@ -142,6 +142,11 @@ call vundle#end()
 " don't check when quitting
 let g:syntastic_check_on_wq = 0
 
+" don't check for latex
+let g:syntastic_mode_map = {
+    \ "mode": "active",
+    \ "passive_filetypes": ["tex"] }
+
 " opening NERDTree doesn't trigger BufLeave
 map <C-n> :call NumbersOn() <bar> :NERDTree<CR>
 let g:NERDTreeMapOpenVSplit="v"
@@ -166,7 +171,7 @@ augroup lang
     \ call SuperTabChain(&omnifunc, "<c-p>") |
     \ let b:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
   autocmd FileType tex
-    \ map <C-c> :!pdflatex '%:p'<CR>
+    \ map <C-c> :!latexmk -xelatex -cd -pdf -outdir=out %<CR>
 augroup END
 
 """"""""""""""""

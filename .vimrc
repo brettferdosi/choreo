@@ -14,9 +14,6 @@ set nocompatible
 " keep 50 lines of history
 set history=50
 
-" use macOS clipboard
-set clipboard=unnamed
-
 " vertical diffs
 set diffopt+=vertical
 
@@ -152,7 +149,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 

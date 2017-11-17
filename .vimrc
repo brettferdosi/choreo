@@ -2,11 +2,20 @@
 """" CONFIG """"
 """"""""""""""""
 
+" allow project local config
+set exrc
+
+" block malicious project local config
+set secure
+
 " turn off vi mode - must be first
 set nocompatible
 
 " keep 50 lines of history
 set history=50
+
+" use macOS clipboard
+set clipboard=unnamed
 
 " vertical diffs
 set diffopt+=vertical
@@ -58,15 +67,11 @@ set autoindent
 set textwidth=0
 set wrapmargin=0
 
-" spellcheck and format when editing text
+" format when editing text
 augroup text
   autocmd!
   autocmd Filetype text,tex setlocal textwidth=80
-  autocmd Filetype tex setlocal spell spelllang=en
 augroup END
-
-" set default tex mode to latex
-let g:tex_flavor = "latex"
 
 " highlight matches
 set showmatch
@@ -119,6 +124,19 @@ augroup END
 " completion popup options
 set completeopt=menuone,preview,longest
 
+" make
+map <C-m> :!make <CR>
+
+" language support
+augroup lang
+  autocmd!
+  autocmd FileType c
+    \ map <C-c> :!ctags -R .<CR>
+  autocmd FileType tex
+    \ map <C-c> :!latexmk -xelatex -cd -pdf -outdir=out %<CR>
+augroup END
+
+
 """""""""""""""""
 """" PLUGINS """"
 """""""""""""""""
@@ -135,7 +153,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
@@ -152,27 +170,8 @@ map <C-n> :call NumbersOn() <bar> :NERDTree<CR>
 let g:NERDTreeMapOpenVSplit="v"
 let g:NERDTreeMapOpenSplit="s"
 
-" use context supertab completion with keyword default
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-p>"
-
 " restore filetype plugin/indents
 filetype plugin indent on
-
-" language support
-setlocal omnifunc=syntaxcomplete#Complete
-augroup lang
-  autocmd!
-  autocmd FileType c
-    \ setlocal omnifunc=ccomplete#Complete |
-    \ let b:SuperTabContextDefaultCompletionType = "<c-p>" |
-    \ map <C-c> :!ctags -R .<CR>
-  autocmd FileType java
-    \ call SuperTabChain(&omnifunc, "<c-p>") |
-    \ let b:SuperTabContextDefaultCompletionType = "<c-x><c-u>"
-  autocmd FileType tex
-    \ map <C-c> :!latexmk -xelatex -cd -pdf -outdir=out %<CR>
-augroup END
 
 """"""""""""""""
 """" VISUAL """"

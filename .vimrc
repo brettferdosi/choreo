@@ -149,21 +149,12 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
-
-" don't check when quitting
-let g:syntastic_check_on_wq = 0
-
-" don't check for latex
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["tex"] }
 
 " opening NERDTree doesn't trigger BufLeave
 map <C-n> :call NumbersOn() <bar> :NERDTree<CR>

@@ -2,6 +2,9 @@
 """" CONFIG """"
 """"""""""""""""
 
+" get correct keycodes inside tmux
+set term=xterm-256color
+
 " allow project local config
 set exrc
 
@@ -37,6 +40,12 @@ noremap <C-k> <C-w>k
 noremap <C-h> <C-w>h
 noremap <C-l> <C-w>l
 
+"split resize"
+noremap <C-Up> <C-w>5+
+noremap <C-Down> <C-w>5-
+noremap <C-Left> <C-w>5<
+noremap <C-Right> <C-w>5>
+
 " navigate wrapped lines
 noremap j gj
 noremap k gk
@@ -64,10 +73,13 @@ set autoindent
 set textwidth=0
 set wrapmargin=0
 
-" format when editing text
+"default .tex to latex
+let g:tex_flavor = "latex"
+
+" format and spellcheck when editing text
 augroup text
   autocmd!
-  autocmd Filetype text,tex setlocal textwidth=80
+  autocmd Filetype text,tex setlocal textwidth=80 spell
 augroup END
 
 " highlight matches
@@ -86,53 +98,42 @@ set scrolloff=8
 set hlsearch
 " incremental searching
 set incsearch
-" return stops the search
-nnoremap <CR> :noh<CR><CR>
 set ignorecase
 " searches starting with capital are case sensitive
 set smartcase
+" return clears highlighting
+nnoremap <CR> :noh<CR>
 " /g default for replaces
 set gdefault
 
+" double space toggles folding
+nnoremap <Leader><space> za
+
+" fast leaving insert mode with esc
+augroup escapeinsert
+  autocmd!
+  autocmd InsertEnter * set timeoutlen=0
+  autocmd InsertLeave * set timeoutlen=1000
+augroup END
+
 " intelligent relative/absolute numbering
 set rnu
+set nu
 function! RelativeOn()
   if &buftype != "nofile"
-    set nonu
     set rnu
   endif
 endfunction
-function! NumbersOn()
+function! RelativeOff()
   if &buftype != "nofile"
     set nornu
-    set nu
   endif
 endfunction
 augroup numbering
   autocmd!
-  autocmd FocusLost * call NumbersOn()
-  autocmd FocusGained * call RelativeOn()
-  autocmd BufLeave * call NumbersOn()
-  autocmd BufEnter * call RelativeOn()
-  autocmd InsertEnter * call NumbersOn()
-  autocmd InsertLeave * call RelativeOn()
+  autocmd WinLeave,InsertEnter * call RelativeOff()
+  autocmd WinEnter,InsertLeave * call RelativeOn()
 augroup END
-
-" completion popup options
-set completeopt=menuone,preview,longest
-
-" make
-map <C-m> :!make <CR>
-
-" language support
-augroup lang
-  autocmd!
-  autocmd FileType c
-    \ map <C-c> :!ctags -R .<CR>
-  autocmd FileType tex
-    \ map <C-c> :!latexmk -xelatex -cd -pdf -outdir=out %<CR>
-augroup END
-
 
 """""""""""""""""
 """" PLUGINS """"
@@ -148,13 +149,10 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
-" opening NERDTree doesn't trigger BufLeave
-map <C-n> :call NumbersOn() <bar> :NERDTree<CR>
+noremap <C-n> :NERDTree<CR>
 let g:NERDTreeMapOpenVSplit="v"
 let g:NERDTreeMapOpenSplit="s"
 
@@ -194,9 +192,6 @@ highlight StatusLineNC ctermfg=238
 highlight VertSplit ctermfg=238
 " remove vertical split bar |
 set fillchars+=vert:\ 
-
-" change omnicomplete box background color
-highlight Pmenu ctermbg=238
 
 " change sign column background color
 highlight SignColumn ctermbg=238

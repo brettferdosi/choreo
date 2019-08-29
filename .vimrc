@@ -2,9 +2,6 @@
 """" CONFIG """"
 """"""""""""""""
 
-" get correct keycodes inside tmux
-set term=xterm-256color
-
 " allow project local config
 set exrc
 
@@ -49,6 +46,14 @@ noremap <C-Right> <C-w>5>
 " navigate wrapped lines
 noremap j gj
 noremap k gk
+
+" understand tmux C-Arrows
+if &term == "screen"
+    map <esc>[1;5A <C-Up>
+    map <esc>[1;5B <C-Down>
+    map <esc>[1;5D <C-Left>
+    map <esc>[1;5C <C-Right>
+endif
 
 """"""""""""""""
 """" EDITOR """"

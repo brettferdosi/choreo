@@ -2,20 +2,17 @@
 """" CONFIG """"
 """"""""""""""""
 
-" allow project local config
-set exrc
-
-" block malicious project local config
-set secure
-
 " turn off vi mode - must be first
 set nocompatible
+
+" 256 colors even with tmux
+set t_Co=256
 
 " keep 50 lines of history
 set history=50
 
 " vertical diffs
-set diffopt+=vertical
+set diffopt=vertical,filler
 
 " split bottom and right
 set splitright
@@ -23,6 +20,10 @@ set splitbelow
 
 " display incomplete commands
 set showcmd
+
+" wait for mapping combinations but not keycodes
+" (leave insert and visual with esc quickly)
+set ttimeoutlen=0
 
 " make space leader (this way so showcmd shows \)
 map <Space> <Leader>
@@ -48,11 +49,19 @@ noremap j gj
 noremap k gk
 
 " understand tmux C-Arrows
+" (can't set keycodes for <C-Arrows> directly,
+" used unused function keys as an indirect
+" mapping; using map directly would cause a delay
+" leaving insert or visual with esc)
 if &term == "screen"
-    map <esc>[1;5A <C-Up>
-    map <esc>[1;5B <C-Down>
-    map <esc>[1;5D <C-Left>
-    map <esc>[1;5C <C-Right>
+  exec "set <F13>=[1;5A"
+  exec "set <F14>=[1;5B"
+  exec "set <F15>=[1;5D"
+  exec "set <F16>=[1;5C"
+  map <F13> <C-Up>
+  map <F14> <C-Down>
+  map <F15> <C-Left>
+  map <F16> <C-Right>
 endif
 
 """"""""""""""""
@@ -113,13 +122,6 @@ set gdefault
 
 " double space toggles folding
 nnoremap <Leader><space> za
-
-" fast leaving insert mode with esc
-augroup escapeinsert
-  autocmd!
-  autocmd InsertEnter * set timeoutlen=0
-  autocmd InsertLeave * set timeoutlen=1000
-augroup END
 
 " intelligent relative/absolute numbering
 set rnu

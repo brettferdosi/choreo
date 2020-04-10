@@ -82,7 +82,7 @@ function prompt {
   local JOBS=""
   if [ $NUMJOBS -ne 0 ]; then JOBS=" [$NUMJOBS]"; fi
 
-  PS1="$USERCOLOR\u$RESET@$HOSTCOLOR\h$RESET$STATUS$JOBS \w$GREEN\nↈ $RESET "
+  PS1="$USERCOLOR\u$RESET@$HOSTCOLOR\h$RESET$STATUS$JOBS \w$GREEN\n>$RESET "
 }
 export PROMPT_COMMAND="prompt"
 

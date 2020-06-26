@@ -1,0 +1,20 @@
+# hidden
+alias la="ls -A"
+# list and hidden
+alias ll="ls -lhA"
+
+function cdl { cd "$1" && ls; }
+
+# create and report parent directories
+alias mkdir="mkdir -pv"
+
+# continue download in case of problems
+alias wget="wget -c"
+
+alias grep="grep --color=always --line-number"
+
+# coloring
+alias less="less -R"
+
+alias reboot="sudo shutdown -r now"
+alias shutdown="sudo shutdown -h now"

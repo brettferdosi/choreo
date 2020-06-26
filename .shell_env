@@ -1,0 +1,17 @@
+VIM_PATH=$(which vim)
+if [ $? -eq 0 ]; then
+  export EDITOR=$VIM_PATH
+  export SVN_EDITOR=$VIM_PATH
+  export GIT_EDITOR=$VIM_PATH
+fi
+
+LESS_PATH=$(which less)
+if [ $? -eq 0 ]; then
+  export PAGER=$LESS_PATH
+fi
+
+# BSD
+export CLICOLOR=1
+export LSCOLORS=exfxcxdxbxegedabagacad
+# GNU
+export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"

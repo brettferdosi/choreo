@@ -3,8 +3,11 @@
 DIR="`cd "\`dirname "$0"\`" && pwd -P`"
 
 echo "creating symbolic links from ~ to $DIR..."
+ln -sfv "$DIR/.shell_env" ~
+ln -sfv "$DIR/.shell_aliases" ~
 ln -sfv "$DIR/.bash_profile" ~
 ln -sfv "$DIR/.bashrc" ~
+ln -sfv "$DIR/.zshrc" ~
 ln -sfv "$DIR/.vimrc" ~
 ln -sfv "$DIR/.tmux.conf" ~
 

@@ -1,21 +1,13 @@
-##################
-#### SETTINGS ####
-##################
-
-VIM_PATH=$(which vim)
-if [ $? -eq 0 ]; then
-  export EDITOR=$VIM_PATH
-  export SVN_EDITOR=$VIM_PATH
-  export GIT_EDITOR=$VIM_PATH
-fi
-
-LESS_PATH=$(which less)
-if [ $? -eq 0 ]; then
-  export PAGER=$LESS_PATH
-fi
+. ~/.shell_env
 
 # skip the rest of this file if non-interactive
 [ -z "$PS1" ] && return
+
+. ~/.shell_aliases
+
+##################
+#### SETTINGS ####
+##################
 
 # ignore duplicates in bash history
 export HISTCONTROL=ignoredups:erasedups
@@ -28,40 +20,16 @@ shopt -s checkwinsize
 # fix spelling errors in cd
 shopt -s cdspell
 
-#################
-#### ALIASES ####
-#################
-
-# coloring for BSD and GNU
-if ls --color=auto -d / >/dev/null 2>&1; then
-  alias ls="ls --color=auto"
-else
-  alias ls="ls -G"
-fi
-# hidden
-alias la="ls -A"
-# list and hidden
-alias ll="ls -lhA"
-
-function cdl { cd "$1" && ls; } 
-
-# create and report parent directories
-alias mkdir="mkdir -pv"
-
-# continue download in case of problems
-alias wget="wget -c"
-
-alias grep="grep --color=always --line-number"
-
-# coloring
-alias less="less -R"
-
-alias reboot="sudo shutdown -r now"
-alias shutdown="sudo shutdown -h now"
-
 ################
 #### PROMPT ####
 ################
+
+function git_status {
+  local BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
+  if [ -n "$BRANCH" ]; then BRANCH="$BRANCH "; fi
+  local DESC=$(git describe --tags --always --dirty 2> /dev/null)
+  echo "$BRANCH$DESC"
+}
 
 function prompt {
   local EXITSTATUS=$?
@@ -82,7 +50,10 @@ function prompt {
   local JOBS=""
   if [ $NUMJOBS -ne 0 ]; then JOBS=" [$NUMJOBS]"; fi
 
-  PS1="$USERCOLOR\u$RESET@$HOSTCOLOR\h$RESET$STATUS$JOBS \w$GREEN\n>$RESET "
+  local GIT=$(git_status)
+  if [ -n "$GIT" ]; then GIT=" $GIT"; fi
+
+  PS1="$USERCOLOR\u$RESET@$HOSTCOLOR\h$RESET$STATUS$JOBS \w$GREEN$GIT\n>$RESET "
 }
 export PROMPT_COMMAND="prompt"
 

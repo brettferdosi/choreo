@@ -10,5 +10,6 @@ else
   cd -
 fi
 
+# TODO just cli
 echo "running dotfiles installer..."
 sh ~/dotfiles/install.sh

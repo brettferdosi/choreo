@@ -1,0 +1,19 @@
+[core]
+  excludesfile = ~/.gitignore
+  # https://git-scm.com/docs/git-update-index#_untracked_cache
+  untrackedCache = true
+
+[diff]
+  # detect copies and renames
+  renames = copies
+
+[diff "bin"]
+  # diff binary files with hexdump
+  textconv = hexdump -v -C
+
+[push]
+  # push annotated tags with branches
+  followTags = true
+[user]
+	name = Brett Gutstein
+	email = brett.gutstein@cst.cam.ac.uk

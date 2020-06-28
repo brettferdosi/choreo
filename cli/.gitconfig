@@ -14,6 +14,3 @@
 [push]
   # push annotated tags with branches
   followTags = true
-[user]
-	name = Brett Gutstein
-	email = brett.gutstein@cst.cam.ac.uk

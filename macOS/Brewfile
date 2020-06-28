@@ -1,0 +1,40 @@
+##################
+#### PREAMBLE ####
+##################
+
+# TODO make tap for my own apps
+tap 'homebrew/core'
+tap 'homebrew/cask'
+tap 'homebrew/bundle'
+
+# mac app store CLI needed later
+brew 'mas'
+
+##################
+#### FORMULAE ####
+##################
+
+brew 'git'
+brew 'tmux'
+brew 'vim'
+brew 'wget'
+brew 'ffmpeg'
+brew 'lynx'
+
+cask 'google-drive-file-stream'
+cask 'mactex'
+cask 'clion'
+cask 'pycharm'
+cask 'appcleaner'
+cask 'gimp'
+cask 'firefox'
+# cask 'spotify'
+
+mas 'Microsoft Word', id: 462054704
+mas 'Microsoft PowerPoint', id: 462062816
+mas 'Microsoft Excel', id: 462058435
+mas 'Xcode', id: 497799835
+# mas 'Pages', id: 409201541
+# mas 'Keynote', id: 409183694
+# mas 'Numbers', id: 409203825
+# mas 'Vectornator Pro', id: 1470168007

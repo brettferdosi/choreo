@@ -67,10 +67,6 @@ stty -ixon
 # emacs key bindings (like bash default)
 bindkey -e
 
-# use up and down arrow keys to search history
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-
 ################
 #### PROMPT ####
 ################
@@ -84,9 +80,9 @@ function git_status {
   echo "$BRANCH$DESC"
 }
 
+# TODO improve this
 function prompt {
   local EXITSTATUS=$?
-  local NUMJOBS=$(jobs | wc -l | tr -d '[[:space:]]')
 
   local GREEN="%{$fg[green]%}"
   local RED="%{$fg[red]%}"
@@ -100,17 +96,25 @@ function prompt {
 
   local STATUS=""
   if [ $EXITSTATUS -ne 0 ]; then STATUS=" ($EXITSTATUS)"; fi
-  local JOBS=""
-  if [ $NUMJOBS -ne 0 ]; then JOBS=" [$NUMJOBS]"; fi
 
   local GIT=$(git_status)
   if [ -n "$GIT" ]; then GIT=" $GIT"; fi
 
   local NEWLINE=$'\n'
 
-  PS1="$USERCOLOR%n$RESET@$HOSTCOLOR%m$RESET$STATUS$JOBS %~$GREEN$GIT${NEWLINE}>$RESET "
+  PS1="$USERCOLOR%n$RESET@$HOSTCOLOR%m$RESET$STATUS%(1j. [%j].) %~$GREEN$GIT${NEWLINE}>$RESET "
 }
 precmd_functions=(prompt)
+
+##############
+#### TMUX ####
+##############
+
+tmux ls &> /dev/null
+RET=$?
+if [ $RET -eq 0 ] && [ -z "$TMUX" ]; then
+  echo "tmux session active"
+fi
 
 ###############
 #### LOCAL ####

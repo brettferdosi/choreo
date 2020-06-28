@@ -1,3 +1,3 @@
-# dotfiles
+# choreo
 
-run `git clone http://dotfiles.gutste.in dotfiles` then `install.sh`
+run `git clone http://choreo.gutste.in choreo` then `install.sh`

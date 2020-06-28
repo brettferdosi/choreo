@@ -2,7 +2,7 @@
 
 DIR="`cd "\`dirname "$0"\`" && pwd -P`"
 
-echo ">>>> cli start"
+echo ">>>> dotfiles start"
 
 echo ">>>> creating symbolic links from ~ to $DIR..."
 ln -sfv "$DIR/.shell_env" ~
@@ -24,4 +24,4 @@ echo ">>>> installing Vundle plugins..."
 # input tty so vim doesn't complain
 vim +PluginInstall +qall </dev/tty
 
-echo ">>>> cli done"
+echo ">>>> dotfiles done"

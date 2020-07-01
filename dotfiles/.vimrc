@@ -161,7 +161,7 @@ call vundle#end()
 
 noremap <C-n> :NERDTree<CR>
 let g:NERDTreeMapOpenVSplit="v"
-let g:NERDTreeMapOpenSplit="s"
+let g:NERDTreeMapOpenSplit="c"
 
 " restore filetype plugin/indents
 filetype plugin indent on

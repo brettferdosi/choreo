@@ -1,3 +1,3 @@
 # choreo
 
-run `git clone http://choreo.gutste.in choreo` then `install.sh`
+clone this repo and run `install.sh`

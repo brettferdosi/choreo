@@ -3,7 +3,7 @@
 DIR="`cd "\`dirname "$0"\`" && pwd -P`"
 
 if [ "$#" -eq "0" ]; then
-  echo ">>>> run with options: dotfiles, macOS"
+  echo ">>>> run with options: dotfiles, macOS, firefox"
   exit 1
 fi
 
@@ -16,6 +16,9 @@ case "$1" in
   macOS)
     MACOS=1
     ;;
+  firefox)
+    FIREFOX=1
+    ;;
   *)
     echo ">>>> unknown option $1"
 esac
@@ -27,5 +30,9 @@ if [ -n "$DOTFILES" ]; then
 fi
 
 if [ -n "$MACOS" ]; then
-  /bin/bash "$DIR/macOS/macOS.sh"
+  /bin/sh "$DIR/macOS/macOS.sh"
+fi
+
+if [ -n "$FIREFOX" ]; then
+  /bin/sh "$DIR/firefox/firefox.sh"
 fi

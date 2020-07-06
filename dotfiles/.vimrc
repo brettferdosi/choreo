@@ -5,8 +5,13 @@
 " turn off vi mode - must be first
 set nocompatible
 
-" 256 colors even with tmux
-set t_Co=256
+" work with system clipboard
+set clipboard^=unnamed,unnamedplus
+
+" enable using true (RGB) colors on a compatible
+" terminal emulator. the right way to do this is
+" probably by gating on specific TERM values
+" set termguicolors
 
 " keep 50 lines of history
 set history=50
@@ -172,8 +177,8 @@ filetype plugin indent on
 
 " syntax highlighting and color scheme
 syntax enable
-set background=dark
-colo default 
+set background=light
+colo default
 
 " always show status line
 set laststatus=2

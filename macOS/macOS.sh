@@ -58,6 +58,10 @@ sh "$DIR/defaults.sh"
 echo ">>>> installing caps lock -> esc launch agent"
 ln -sfv "$DIR/local.RemapCapsLockToEsc.plist" ~/Library/LaunchAgents/
 
+echo ">>>> configuring tmux to use system clipboard"
+echo "bind-key -T copy-mode-vi \"y\" send-keys -X copy-pipe-and-cancel \"pbcopy\"" >> ~/.tmux.conf.local
+echo "bind -n M-] run \"pbpaste | tmux load-buffer - && tmux paste-buffer\"" >> ~/.tmux.conf.local
+
 # hush login messages
 echo ">>>> touch ~/.hushlogin"
 touch ~/.hushlogin

@@ -19,7 +19,9 @@ brew 'tmux'
 brew 'vim'
 brew 'wget'
 brew 'ffmpeg'
+brew 'imagemagick'
 brew 'lynx'
+brew 'python'
 
 cask 'google-drive-file-stream'
 cask 'mactex'
@@ -28,7 +30,6 @@ cask 'pycharm'
 cask 'appcleaner'
 cask 'gimp'
 cask 'firefox'
-# cask 'spotify'
 
 mas 'Microsoft Word', id: 462054704
 mas 'Microsoft PowerPoint', id: 462062816

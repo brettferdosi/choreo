@@ -168,6 +168,9 @@ defaults write com.apple.Terminal ShowLineMarks -bool false
 #### MISC ####
 ##############
 
+# use CloudFlare DNS servers
+networksetup -setdnsservers Wi-Fi 1.1.1.1 1.0.0.1
+
 # plain text mode for new TextEdit documents
 defaults write com.apple.TextEdit RichText -bool false
 

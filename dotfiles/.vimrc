@@ -58,7 +58,7 @@ noremap k gk
 " used unused function keys as an indirect
 " mapping; using map directly would cause a delay
 " leaving insert or visual with esc)
-if &term == "screen"
+if &term == "screen-256color"
   exec "set <F13>=[1;5A"
   exec "set <F14>=[1;5B"
   exec "set <F15>=[1;5D"
@@ -166,7 +166,7 @@ call vundle#end()
 
 noremap <C-n> :NERDTree<CR>
 let g:NERDTreeMapOpenVSplit="v"
-let g:NERDTreeMapOpenSplit="c"
+let g:NERDTreeMapOpenSplit="s"
 
 " restore filetype plugin/indents
 filetype plugin indent on

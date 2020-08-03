@@ -30,6 +30,7 @@ cask 'pycharm'
 cask 'appcleaner'
 cask 'gimp'
 cask 'firefox'
+cask 'spotify'
 
 mas 'Microsoft Word', id: 462054704
 mas 'Microsoft PowerPoint', id: 462062816

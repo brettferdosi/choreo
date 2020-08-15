@@ -76,8 +76,10 @@ autoload -U colors && colors
 function git_status {
   local BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
   if [ -n "$BRANCH" ]; then BRANCH="$BRANCH "; fi
-  local DESC=$(git describe --tags --always --dirty 2> /dev/null)
-  echo "$BRANCH$DESC"
+  echo $BRANCH
+  # desc is slow
+  #local DESC=$(git describe --tags --always --dirty 2> /dev/null)
+  #echo "$BRANCH$DESC"
 }
 
 # TODO improve this

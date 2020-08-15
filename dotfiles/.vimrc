@@ -33,6 +33,9 @@ set ttimeoutlen=0
 " make space leader (this way so showcmd shows \)
 map <Space> <Leader>
 
+" look for ctags
+set tags=./tags;/
+
 """"""""""""""""""
 """" BINDINGS """"
 """"""""""""""""""
@@ -52,6 +55,16 @@ noremap <C-Right> <C-w>5>
 " navigate wrapped lines
 noremap j gj
 noremap k gk
+
+" ctags - show list if multiple matches
+nnoremap <C-U> g<C-]>
+vnoremap <C-U> g<C-]>
+" ctags - open in split
+nnoremap <C-W><C-U> <C-W>g]
+vnoremap <C-W><C-U> <C-W>g]
+" ctags - pop tag stack
+nnoremap <C-Y> <C-T>
+vnoremap <C-Y> <C-T>
 
 " understand tmux C-Arrows
 " (can't set keycodes for <C-Arrows> directly,

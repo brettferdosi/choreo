@@ -16,6 +16,10 @@ shopt -s checkwinsize
 # fix spelling errors in cd
 shopt -s cdspell
 
+# ctrl left and right move words
+bind '"\e[1;5D" backward-word'
+bind '"\e[1;5C" forward-word'
+
 ################
 #### PROMPT ####
 ################

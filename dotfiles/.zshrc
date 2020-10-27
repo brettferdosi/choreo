@@ -67,6 +67,10 @@ stty -ixon
 # emacs key bindings (like bash default)
 bindkey -e
 
+# ctrl left and right move words
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+
 ################
 #### PROMPT ####
 ################

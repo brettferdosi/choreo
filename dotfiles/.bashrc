@@ -1,3 +1,6 @@
+# if not interactive, don't do anything
+[ -z "$PS1" ] && return
+
 . ~/.shell_env
 . ~/.shell_aliases
 

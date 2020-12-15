@@ -111,7 +111,9 @@ let g:tex_flavor = "latex"
 " format and spellcheck when editing text
 augroup text
   autocmd!
-  autocmd Filetype text,tex setlocal textwidth=80 spell
+  autocmd Filetype text,tex,markdown setlocal spell textwidth=80 fo+=l fo+=n
+  " auto-flow markdown
+  autocmd Filetype markdown setlocal fo+=a
 augroup END
 
 " highlight matches

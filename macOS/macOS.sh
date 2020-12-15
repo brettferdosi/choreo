@@ -55,9 +55,8 @@ sh "$DIR/defaults.sh"
 
 # remap caps lock to escape
 # https://developer.apple.com/library/archive/technotes/tn2450/_index.html
-echo ">>>> installing caps lock -> esc launch agent"
+echo ">>>> installing caps lock -> esc launch agent... reboot for effect"
 cp "$DIR/local.RemapCapsLockToEsc.plist" ~/Library/LaunchAgents/
-launchctl load -Fw ~/Library/LaunchAgents/local.RemapCapsLockToEsc.plist
 
 echo ">>>> configuring tmux to use system clipboard"
 echo "bind-key -T copy-mode-vi \"y\" send-keys -X copy-pipe-and-cancel \"pbcopy\"" >> ~/.tmux.conf.local

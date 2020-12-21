@@ -8,9 +8,11 @@
   renames = copies
 
 [diff "bin"]
-  # diff binary files with hexdump
   textconv = hexdump -v -C
 
 [push]
   # push annotated tags with branches
   followTags = true
+
+[pull]
+  rebase = true

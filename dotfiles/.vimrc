@@ -176,6 +176,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
+Plugin 'editorconfig/editorconfig-vim'
 
 call vundle#end()
 

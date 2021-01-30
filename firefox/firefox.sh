@@ -25,7 +25,7 @@ echo ">>>> running firefox... window will open"
 "$FIREFOX_BIN" &>/dev/null &
 
 DEFAULT_PROFILE_NAME=default-release
-FIREFOX_PROFILE=`echo "$FIREFOX_PROFILE_DIR"/*.$DEFAULT_PROFILE_NAME`
+FIREFOX_PROFILE=`echo "$FIREFOX_PROFILE_DIR"/*."$DEFAULT_PROFILE_NAME"*`
 while [ ! -d "$FIREFOX_PROFILE" ]
 do
   echo ">>>> waiting for firefox profile to be created..."

@@ -20,6 +20,13 @@ user_pref("browser.startup.homepage", "about:blank");
 user_pref("browser.newtabpage.enabled", false);
 user_pref("browser.newtab.preload", false);
 
+// firefox's "smart" new tab bookmark bar visibility doesn't
+// work with empty newtab pages - workaround in userChrome.css
+user_pref("browser.toolbars.bookmarks.visibility", "always");
+
+// disable aggressive url bar suggestions
+user_pref("browser.urlbar.maxRichResults", 0);
+
 // enable userChrome.css
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 

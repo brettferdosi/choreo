@@ -2,10 +2,11 @@
 #### PREAMBLE ####
 ##################
 
-# TODO make tap for my own apps
 tap 'homebrew/core'
 tap 'homebrew/cask'
 tap 'homebrew/bundle'
+
+tap 'brettferdosi/tap'
 
 # mac app store CLI needed later
 brew 'mas'
@@ -32,6 +33,8 @@ cask 'appcleaner'
 cask 'gimp'
 cask 'firefox'
 cask 'spotify'
+
+cask 'brettferdosi/tap/grayscale'
 
 mas 'Microsoft Word', id: 462054704
 mas 'Microsoft PowerPoint', id: 462062816

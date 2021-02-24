@@ -2,6 +2,8 @@
 
 DIR=`cd "\`dirname "$0"\`" && pwd -P`
 
+source "$DIR/../lib.sh"
+
 echo ">>>> firefox start"
 
 if [ `uname` == "Darwin" ]; then
@@ -57,11 +59,11 @@ echo ">>>> installing uBlock and uMatrix... confirm install in firefox ui"
 "$FIREFOX_BIN" "$UBLOCK_XPI" "$UMATRIX_XPI" &>/dev/null &
 
 echo ">>>> installing user.js"
-ln -sfv "$DIR/user.js" "$FIREFOX_PROFILE"
+link_with_backup "$DIR/user.js" "$FIREFOX_PROFILE/user.js"
 
 echo ">>>> installing userChrome.css"
 mkdir "$FIREFOX_PROFILE/chrome"
-ln -sfv "$DIR/userChrome.css" "$FIREFOX_PROFILE/chrome"
+link_with_backup "$DIR/userChrome.css" "$FIREFOX_PROFILE/chrome/userChrome.css"
 
 echo ">>>> changing default search to DuckDuckGo"
 while [ ! -f "$FIREFOX_PROFILE/search.json.mozlz4" ]

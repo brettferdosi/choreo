@@ -2,18 +2,20 @@
 
 DIR=`cd "\`dirname "$0"\`" && pwd -P`
 
+source "$DIR/../lib.sh"
+
 echo ">>>> dotfiles start"
 
 echo ">>>> creating symbolic links from ~ to $DIR..."
-ln -sfv "$DIR/.shell_env" ~
-ln -sfv "$DIR/.shell_aliases" ~
-ln -sfv "$DIR/.bash_profile" ~
-ln -sfv "$DIR/.bashrc" ~
-ln -sfv "$DIR/.zshrc" ~
-ln -sfv "$DIR/.vimrc" ~
-ln -sfv "$DIR/.tmux.conf" ~
-ln -sfv "$DIR/.gitconfig" ~
-ln -sfv "$DIR/.gitignore" ~
+link_with_backup "$DIR/.shell_env" ~/.shell_env
+link_with_backup "$DIR/.shell_aliases" ~/.shell_aliases
+link_with_backup "$DIR/.bash_profile" ~/.bash_profile
+link_with_backup "$DIR/.bashrc" ~/.bashrc
+link_with_backup "$DIR/.zshrc" ~/.zshrc
+link_with_backup "$DIR/.vimrc" ~/.vimrc
+link_with_backup "$DIR/.tmux.conf" ~/.tmux.conf
+link_with_backup "$DIR/.gitconfig" ~/.gitconfig
+link_with_backup "$DIR/.gitignore" ~/.gitignore
 
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
   echo ">>>> cloning vundle repo to ~/.vim/bundle/Vundle.vim..."

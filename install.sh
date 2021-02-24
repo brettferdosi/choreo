@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DIR="`cd "\`dirname "$0"\`" && pwd -P`"
+DIR=`cd "\`dirname "$0"\`" && pwd -P`
 
 if [ "$#" -eq "0" ]; then
   echo ">>>> run with options: dotfiles, macOS, firefox"

@@ -98,6 +98,11 @@ set shiftround
 " display tabs, nbsps, and trailing spaces
 set list listchars=tab:»·,trail:·,nbsp:·
 
+" if necessary to soft break, do it
+" at word boundaries and show a marker
+set linebreak
+set showbreak=↪\ 
+
 " match previous line indentation
 set autoindent
 
@@ -105,16 +110,26 @@ set autoindent
 set textwidth=0
 set wrapmargin=0
 
-"default .tex to latex
+" default .tex to latex
 let g:tex_flavor = "latex"
 
-" format and spellcheck when editing text
-augroup text
+" non-code editing
+augroup not_code
   autocmd!
-  autocmd Filetype text,tex,markdown setlocal spell textwidth=80 fo+=l fo+=n
-  " auto-flow markdown
-  autocmd Filetype markdown setlocal fo+=a
+  autocmd Filetype text,tex,markdown setlocal spell nu nornu
+  " text files autoflow to paragraphs by default because they are read
+  " directly; use :set fo-=atc to disable wrapping for text files.
+  autocmd Filetype text setlocal textwidth=80 fo+=anl
+  " tex and markdown should have one sentence per line because they are
+  " source; use Goyo to soft-wrap long sentences nicely.
 augroup END
+
+" Goyo mapping
+nnoremap <Leader><CR> :Goyo<CR>
+
+" nop to make StatusLine != StatusLineNC so
+" vim doesn't show carets (see :help StatusLineNC)
+autocmd! User GoyoEnter highlight StatusLineNC guibg=green
 
 " highlight matches
 set showmatch
@@ -143,16 +158,17 @@ set gdefault
 " double space toggles folding
 nnoremap <Leader><space> za
 
-" intelligent relative/absolute numbering
+" relative/absolute numbering for code
 set rnu
 set nu
+let textfiletypes = ['tex', 'text', 'markdown']
 function! RelativeOn()
-  if &buftype != "nofile"
+  if &buftype != "nofile" && index(g:textfiletypes, &ft) < 0
     set rnu
   endif
 endfunction
 function! RelativeOff()
-  if &buftype != "nofile"
+  if &buftype != "nofile"&& index(g:textfiletypes, &ft) < 0
     set nornu
   endif
 endfunction
@@ -177,6 +193,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'junegunn/goyo.vim'
 
 call vundle#end()
 

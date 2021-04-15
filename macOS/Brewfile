@@ -33,6 +33,7 @@ cask 'appcleaner'
 cask 'gimp'
 cask 'firefox'
 cask 'spotify'
+cask 'adobe-acrobat-reader'
 
 cask 'brettferdosi/tap/grayscale'
 

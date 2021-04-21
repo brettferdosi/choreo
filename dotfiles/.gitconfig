@@ -10,6 +10,9 @@
 [diff "bin"]
   textconv = hexdump -v -C
 
+[merge]
+  conflictstyle = diff3
+
 [push]
   # push annotated tags with branches
   followTags = true

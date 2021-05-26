@@ -24,6 +24,7 @@ brew 'ffmpeg'
 brew 'imagemagick'
 brew 'lynx'
 brew 'python'
+brew 'ctags'
 
 cask 'google-drive'
 cask 'mactex'

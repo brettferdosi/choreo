@@ -25,6 +25,7 @@ brew 'imagemagick'
 brew 'lynx'
 brew 'python'
 brew 'ctags'
+brew 'pass'
 
 cask 'google-drive'
 cask 'mactex'
